@@ -13,6 +13,7 @@ export default function Navigations({ token, setToken }) {
         {token ? (
           <>
             <Link className="nav-link" to="/account">Account</Link>
+            <Link className="nav-link" to="/leaderboard">Leaderboard</Link>
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </>
         ) : (

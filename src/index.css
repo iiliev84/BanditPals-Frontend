@@ -62,8 +62,6 @@
   border-radius: 8px;
   text-align: center;
   font-size: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  outline: none;
 }
 
  .login-button,
@@ -76,12 +74,12 @@
   font-weight: bold;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
 }
 
 .login-button:hover,
 .register-button:hover {
   background-color: #4e7c46;
+  color: rgb(219, 236, 37);
 }
 
 body {

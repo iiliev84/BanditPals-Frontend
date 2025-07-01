@@ -3,23 +3,14 @@ import homepage from "../assets/BPmain.png";
 import logo from "../assets/BPlogo.png";
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-  const navigate = useNavigate();   
-
-   const handleLoginClick = () => {
-    navigate('/login');
-  };
-
-  const handleRegisterClick = () => {
-    navigate('/register');
-  };
+const Home = () => { 
 
   return (  
     <>
       <div className="homepage-main"> 
           
         <div className="homepage-content"> 
-            <img src={logo} alt="BPlogo" style={{maxWidth: '500px', height: 'auto'}}/>
+            <img src={logo} alt="BPlogo"/>
             <h2>Welcome to Bandit Pals!</h2> 
           </div>
         </div>

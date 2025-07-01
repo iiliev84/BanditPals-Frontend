@@ -6,6 +6,7 @@ import LogIn from './components/Login'
 import Navigations from './components/Navigations'
 import Account from './components/Account'
 import Home from './components/home'
+import Leaderboard from './components/Leaderboard'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
+        <Route path='/leaderboard' element={<Leaderboard token={token} />} />
       </Routes>
     </div>
     <div>

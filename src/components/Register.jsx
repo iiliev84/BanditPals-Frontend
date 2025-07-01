@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/BPlogo.png";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ export default function Register() {
 
   return (
     <div className="register-container">
+      <img src={logo} alt="BPlogo" style={{maxWidth: '500px', height: 'auto'}}/>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -60,6 +62,7 @@ export default function Register() {
           Register
         </button>
         {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+        <h5>By signing up, you agree to our Terms of Service and Privacy Policy.</h5>
       </form>
     </div>
   );

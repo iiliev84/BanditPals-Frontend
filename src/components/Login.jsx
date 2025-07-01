@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from "../assets/BPlogo.png";
 
 export default function LogIn({ setToken }) {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function LogIn({ setToken }) {
 
   return (
     <div className="login-container">
+      <img src={logo} alt="BPlogo" style={{maxWidth: '500px', height: 'auto'}}/>
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
         <div>
