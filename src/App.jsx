@@ -7,6 +7,7 @@ import Navigations from './components/Navigations'
 import Account from './components/Account'
 import Home from './components/home'
 import Leaderboard from './components/Leaderboard'
+import GameEngine from './components/GameEngine'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
     <>
     <div>
       {<Navigations token={token} setToken={setToken}/>}
+      <GameEngine></GameEngine>
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path='/login' element={<LogIn setToken={setToken} />} />
