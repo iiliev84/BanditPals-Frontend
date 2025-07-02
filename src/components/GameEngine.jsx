@@ -1,5 +1,15 @@
 import { useRef, useEffect } from "react";
 
+function isColliding(a, b) {
+	if (
+		a.x + a.size >= b.x &&
+		a.x <= b.x + b.size &&
+		a.y + a.size >= b.y &&
+		a.y <= b.y + b.size
+	)
+		return true;
+}
+
 const GameEngine = ({ width = 800, height = 600 }) => {
 	const canvasRef = useRef(null);
 	useEffect(() => {
@@ -35,6 +45,20 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 					velocityy: 10,
 					size: 30,
 				},
+                {
+					x: 500,
+					y: 500,
+					velocityx: -30,
+					velocityy: 20,
+					size: 30,
+				},
+                {
+					x: 550,
+					y: 550,
+					velocityx: 20,
+					velocityy: -20,
+					size: 30,
+				},
 			],
 			raccoon: [
 				{
@@ -45,6 +69,7 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 					isAlive: true,
 				},
 			],
+
 			update(dt) {
 				this.raccoon.forEach((raccoon) => {
 					if (raccoon.isAlive) {
@@ -55,6 +80,9 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 						const radius = raccoon.size / 2;
 						raccoon.x = Math.min(width - radius, Math.max(radius, raccoon.x));
 						raccoon.y = Math.min(height - radius, Math.max(radius, raccoon.y));
+						this.trash = this.trash.filter((trash) => {
+							return !isColliding(raccoon, trash);
+						});
 					}
 				});
 				this.trash.forEach((trash) => {
