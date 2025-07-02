@@ -7,7 +7,7 @@ import Navigations from './components/Navigations'
 import Account from './components/Account'
 import Home from './components/home'
 import Leaderboard from './components/Leaderboard'
-import GameEngine from './components/GameEngine'
+import Gameplay from './components/Gameplay'
 
 
 function App() {
@@ -26,7 +26,6 @@ function App() {
     <>
     <div>
       {<Navigations token={token} setToken={setToken}/>}
-      <GameEngine></GameEngine>
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path='/login' element={<LogIn setToken={setToken} />} />
@@ -34,6 +33,7 @@ function App() {
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
+        <Route path='/game' element={<Gameplay token={token}/>} />
       </Routes>
     </div>
     <div>
