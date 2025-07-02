@@ -53,6 +53,20 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 					velocityy: 10,
 					size: 30,
 				},
+				{
+					x: 500,
+					y: 500,
+					velocityx: -30,
+					velocityy: 20,
+					size: 30,
+				},
+                {
+					x: 550,
+					y: 550,
+					velocityx: 20,
+					velocityy: -20,
+					size: 30,
+				},
 			],
 //width and height /2 to create the center of mass
 			raccoon: [
