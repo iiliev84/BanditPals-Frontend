@@ -13,6 +13,7 @@ import Gameplay from './components/Gameplay'
 function App() {
 
   const [token, setToken] = useState(() => localStorage.getItem("token"));
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     if (token) {
@@ -33,8 +34,9 @@ function App() {
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
-        <Route path='/game' element={token ? <Gameplay token={token}/>: <Navigate to="/" />} />
+        <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore}/>: <Navigate to="/" />} />
       </Routes>
+      <p>State score: {score}</p>
     </div>
     <div>
 

@@ -10,7 +10,7 @@ function isColliding(a, b) {
 		return true;
 }
 
-const GameEngine = ({ width = 800, height = 600 }) => {
+const GameEngine = ({ width = 800, height = 600, setScore }) => {
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
 	useEffect(() => {
@@ -93,13 +93,14 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 						const radius = raccoon.size / 2;
 						raccoon.x = Math.min(width - radius, Math.max(radius, raccoon.x));
 						raccoon.y = Math.min(height - radius, Math.max(radius, raccoon.y));
-                        
+
 						const beforeCount = this.trash.length;
 						this.trash = this.trash.filter(
 							(trash) => !isColliding(raccoon, trash)
 						);
 						const afterCount = this.trash.length;
 						this.score += beforeCount - afterCount;
+                        setScore(this.score)
 					}
 				});
 				this.trash.forEach((trash) => {
