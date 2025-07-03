@@ -33,9 +33,8 @@ export default function Account({ token }) {
      {user ? (
     <>
       <h1>Account Details</h1>
-      <h3>Username: {user.username} </h3>
-      <h4>Token: {token} </h4>
-      <h1>Highest Score</h1>
+      <h2>Username: {user.username} </h2>
+      <h2>Highest Score: {user.score}</h2>
     </>
   ) : (
     <p>Loading account details...</p>
