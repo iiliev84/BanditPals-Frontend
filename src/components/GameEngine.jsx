@@ -11,14 +11,14 @@ function isColliding(a, b) {
 }
 
 const GameEngine = ({ width = 800, height = 600 }) => {
-//useRef keeps the page from re-rendering and keeps the canvas updating
+	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
 	useEffect(() => {
 		const canvas = canvasRef.current;
-//ctx -> canvas is on a 2d plane
+		//ctx -> canvas is on a 2d plane
 		const ctx = canvas.getContext("2d");
 
-//keydown and keyup register the press of the keys for movement
+		//keydown and keyup register the press of the keys for movement
 		const keys = {};
 		const keydown = (event) => {
 			keys[event.code] = true;
@@ -32,12 +32,13 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 		window.addEventListener("keyup", keyup);
 
 		const engine = {
-//lastTime -> most recent time that the time was checked
+			//lastTime -> most recent time that the time was checked
 			lastTime: performance.now(),
 
+			score: 0,
 
-//hit boxes / size of each of the components
-//x and y -> spawn points; velocity -> how fast they're moving; size -> pixels
+			//hit boxes / size of each of the components
+			//x and y -> spawn points; velocity -> how fast they're moving; size -> pixels
 			trash: [
 				{
 					x: 100,
@@ -60,7 +61,7 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 					velocityy: 20,
 					size: 30,
 				},
-                {
+				{
 					x: 550,
 					y: 550,
 					velocityx: 20,
@@ -68,7 +69,7 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 					size: 30,
 				},
 			],
-//width and height /2 to create the center of mass
+			//width and height /2 to create the center of mass
 			raccoon: [
 				{
 					x: width / 2,
@@ -79,11 +80,11 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 				},
 			],
 
-//dt = delta time -> change in time
+			//dt = delta time -> change in time
 			update(dt) {
 				this.raccoon.forEach((raccoon) => {
-			//if the raccoon is alive and the key is pressed, it will move at a certain speed
-			//determines if the raccoon hits a wall and stops the movement
+					//if the raccoon is alive and the key is pressed, it will move at a certain speed
+					//determines if the raccoon hits a wall and stops the movement
 					if (raccoon.isAlive) {
 						if (keys["KeyW"]) raccoon.y -= raccoon.speed * dt;
 						if (keys["KeyS"]) raccoon.y += raccoon.speed * dt;
@@ -92,14 +93,18 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 						const radius = raccoon.size / 2;
 						raccoon.x = Math.min(width - radius, Math.max(radius, raccoon.x));
 						raccoon.y = Math.min(height - radius, Math.max(radius, raccoon.y));
-						this.trash = this.trash.filter((trash) => {
-							return !isColliding(raccoon, trash);
-						});
+                        
+						const beforeCount = this.trash.length;
+						this.trash = this.trash.filter(
+							(trash) => !isColliding(raccoon, trash)
+						);
+						const afterCount = this.trash.length;
+						this.score += beforeCount - afterCount;
 					}
 				});
 				this.trash.forEach((trash) => {
-			//determines if the trash hits a wall in the canvas
-			//if it hits the wall, it will bounce off and move in the opposite direction (-1)
+					//determines if the trash hits a wall in the canvas
+					//if it hits the wall, it will bounce off and move in the opposite direction (-1)
 					trash.x += trash.velocityx * dt;
 					trash.y += trash.velocityy * dt;
 					const radius = trash.size / 2;
@@ -110,28 +115,32 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 				});
 			},
 
-//renders the canvas
+			//renders the canvas
 			render(ctx) {
 				ctx.clearRect(0, 0, width, height);
-//rendering the raccoon on the canvas
+				//rendering the raccoon on the canvas
 				this.raccoon.forEach((raccoon) => {
 					const size = raccoon.size;
 					ctx.fillStyle = "grey";
 					ctx.fillRect(raccoon.x - size / 2, raccoon.y - size / 2, size, size);
-						//moves the reference point from the top left corner to the center of mass
+					//moves the reference point from the top left corner to the center of mass
 				});
-//rendering the trash on the canvas
+				//rendering the trash on the canvas
 				this.trash.forEach((trash) => {
 					const size = trash.size;
 					ctx.fillStyle = "red";
 					ctx.fillRect(trash.x - size / 2, trash.y - size / 2, size, size);
 				});
+                
+				ctx.fillStyle = "black";
+				ctx.font = "24px Arial";
+				ctx.fillText(`Score: ${this.score}`, 10, 30);
 			},
 		};
 
 		let frameId;
 
-//loop constantly refreshes the frame to keep the game running and updating
+		//loop constantly refreshes the frame to keep the game running and updating
 		function loop(now) {
 			const dt = (now - engine.lastTime) / 1000;
 			engine.lastTime = now;
@@ -142,8 +151,8 @@ const GameEngine = ({ width = 800, height = 600 }) => {
 
 		frameId = requestAnimationFrame(loop);
 
-//cleanup function:
-//removed the eventlistener to stop tracking key presses to help with memory usage
+		//cleanup function:
+		//removed the eventlistener to stop tracking key presses to help with memory usage
 		return () => {
 			cancelAnimationFrame(frameId);
 			window.removeEventListener("keydown", keydown);
