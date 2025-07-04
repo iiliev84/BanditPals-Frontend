@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 function isColliding(a, b) {
 	if (
@@ -160,8 +160,48 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 			window.removeEventListener("keyup", keyup);
 		};
 	}, [width, height]);
+
+	function Timer() {
+	const [isActive, setIsActive] = useState(false);
+  	const [seconds, setSeconds] = useState(10);
+
+   	useEffect(() => {
+		const handleKeyDown = (event) => {
+      	if ((event.key === 'w' || event.key === 's' || event.key === 'a' || event.key === 'd') && !isActive) {
+        setIsActive(true);
+      	}
+    	};
+
+    	window.addEventListener('keydown', handleKeyDown);
+
+    	return () => {
+      	window.removeEventListener('keydown', handleKeyDown);
+    	};
+  }	, [isActive]); 
+
+  	useEffect(() => {
+		if (!seconds) {
+			<img src={logo} alt="Game Over"/>
+
+			//navigate('/leaderboard');
+			return;
+		} // stop the counter when 0
+    	let timer
+    	if(isActive){
+			timer = setInterval(() => {
+        	setSeconds((seconds) => seconds - 1);
+      	}, 1000); // Decrement seconds every 1 second
+    	}
+    return () => {
+      clearInterval(timer); // Clear the interval on re-render
+    };
+  });
+
+  	return <div><p>Time remaining: {seconds} seconds</p></div>;
+}
 	return (
 		<>
+			<div> {Timer()}</div>;
 			<canvas
 				ref={canvasRef}
 				width={width}
