@@ -181,7 +181,6 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 
   	useEffect(() => {
 		if (!seconds) {
-			<img src={logo} alt="Game Over"/>
 
 			//navigate('/leaderboard');
 			return;
