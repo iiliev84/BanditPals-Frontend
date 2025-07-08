@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import raccoonImageUrl from "../assets/raccoon.png";
 import rockImageUrl from "../assets/rock.png";
 import trashImageUrl from "../assets/trash.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 function isColliding(a, b) {
 	if (
 		a.x + a.size >= b.x &&
@@ -69,7 +69,7 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 				{
 					x: 100,
 					y: 100,
-					velocityx: 50,
+					velocityx: -50,
 					velocityy: 20,
 					size: 40,
 				},
@@ -94,6 +94,48 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 					velocityy: -20,
 					size: 30,
 				},
+                {
+					x: 70,
+					y: 80,
+					velocityx: -10,
+					velocityy: 30,
+					size: 40,
+				},
+				{
+					x: 65,
+					y: 250,
+					velocityx: 50,
+					velocityy: 20,
+					size: 30,
+				},
+				{
+					x: 500,
+					y: 400,
+					velocityx: 30,
+					velocityy: -30,
+					size: 20,
+				},
+				{
+					x: 550,
+					y: 475,
+					velocityx: 40,
+					velocityy: -20,
+					size: 20,
+				},
+                {
+					x: 500,
+					y: 400,
+					velocityx: 60,
+					velocityy: -60,
+					size: 20,
+				},
+				{
+					x: 525,
+					y: 375,
+					velocityx: 30,
+					velocityy: -20,
+					size: 20,
+				},
 			],
 			//width and height /2 to create the center of mass
 			raccoon: [
@@ -110,6 +152,10 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 				{ x: 200, y: 150, size: 50 },
 				{ x: 475, y: 325, size: 60 },
 				{ x: 600, y: 450, size: 40 },
+                { x: 190, y: 500, size: 60 },
+				{ x: 600, y: 150, size: 40 },
+                { x: 100, y: 300, size: 60 },
+                { x: 400, y: 100, size: 40 },
 			],
 
 			//dt = delta time -> change in time
@@ -274,7 +320,7 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 
 		useEffect(() => {
 			if (!seconds) {
-				navigate('/gameover');
+				navigate("/gameover");
 				//fetch score
 				//is fetch score greater than state score?
 				//if higher, replace score
