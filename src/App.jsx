@@ -5,7 +5,7 @@ import Register from './components/Register'
 import LogIn from './components/Login'
 import Navigations from './components/Navigations'
 import Account from './components/Account'
-import Home from './components/home'
+import Home from './components/Home'
 import Leaderboard from './components/Leaderboard'
 import Gameplay from './components/Gameplay'
 import GameOver from './components/GameOver'
@@ -37,7 +37,6 @@ function App() {
         <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score}/>: <Navigate to="/" />} />
         <Route path='/gameover' element={<GameOver token={token} />} />
       </Routes>
-      <p>State score: {score}</p>
     </div>
     <div>
 
