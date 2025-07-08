@@ -1,9 +1,9 @@
 import GameEngine from "./GameEngine.jsx";
 
-function Gameplay({setScore}) {
+function Gameplay({setScore, score}) {
 	return (
 		<>
-			<GameEngine setScore={setScore}></GameEngine>
+			<GameEngine setScore={setScore} score={score}></GameEngine>
 		</>
 	);
 }

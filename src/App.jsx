@@ -34,7 +34,7 @@ function App() {
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
-        <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore}/>: <Navigate to="/" />} />
+        <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score}/>: <Navigate to="/" />} />
       </Routes>
       <p>State score: {score}</p>
     </div>
