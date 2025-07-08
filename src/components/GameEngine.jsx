@@ -1,4 +1,7 @@
 import { useRef, useEffect, useState } from "react";
+import raccoonImageUrl from "../assets/raccoon.png";
+import rockImageUrl from "../assets/rock.png";
+import trashImageUrl from "../assets/trash.png";
 
 function isColliding(a, b) {
 	if (
@@ -10,7 +13,7 @@ function isColliding(a, b) {
 		return true;
 }
 
-const GameEngine = ({ width = 800, height = 600, setScore }) => {
+const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
 	useEffect(() => {
@@ -30,6 +33,28 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 
 		window.addEventListener("keydown", keydown);
 		window.addEventListener("keyup", keyup);
+		//racoon icon
+		const raccoonImage = new Image();
+		raccoonImage.src = raccoonImageUrl;
+		let raccoonImageLoaded = false;
+		//tracks when icon loads
+		raccoonImage.onload = () => {
+			raccoonImageLoaded = true;
+		};
+		//rock icon
+		const rockImage = new Image();
+		rockImage.src = rockImageUrl;
+		let rockImageLoaded = false;
+		rockImage.onload = () => {
+			rockImageLoaded = true;
+		};
+		//trash icon
+		const trashImage = new Image();
+		trashImage.src = trashImageUrl;
+		let trashImageLoaded = false;
+		trashImage.onload = () => {
+			trashImageLoaded = true;
+		};
 
 		const engine = {
 			//lastTime -> most recent time that the time was checked
@@ -79,6 +104,12 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 					isAlive: true,
 				},
 			],
+			//calling static obstacles rocks for now
+			rocks: [
+				{ x: 200, y: 150, size: 50 },
+				{ x: 475, y: 325, size: 60 },
+				{ x: 600, y: 450, size: 40 },
+			],
 
 			//dt = delta time -> change in time
 			update(dt) {
@@ -86,21 +117,35 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 					//if the raccoon is alive and the key is pressed, it will move at a certain speed
 					//determines if the raccoon hits a wall and stops the movement
 					if (raccoon.isAlive) {
-						if (keys["KeyW"]) raccoon.y -= raccoon.speed * dt;
-						if (keys["KeyS"]) raccoon.y += raccoon.speed * dt;
-						if (keys["KeyA"]) raccoon.x -= raccoon.speed * dt;
-						if (keys["KeyD"]) raccoon.x += raccoon.speed * dt;
-						const radius = raccoon.size / 2;
-						raccoon.x = Math.min(width - radius, Math.max(radius, raccoon.x));
-						raccoon.y = Math.min(height - radius, Math.max(radius, raccoon.y));
+						let newX = raccoon.x;
+						let newY = raccoon.y;
 
+						if (keys["KeyW"]) newY -= raccoon.speed * dt;
+						if (keys["KeyS"]) newY += raccoon.speed * dt;
+						if (keys["KeyA"]) newX -= raccoon.speed * dt;
+						if (keys["KeyD"]) newX += raccoon.speed * dt;
+
+						const radius = raccoon.size / 2;
+						newX = Math.min(width - radius, Math.max(radius, newX));
+						newY = Math.min(height - radius, Math.max(radius, newY));
+
+						// checks if movement would result in a collision with an obstacle (AKA rock)
+						const collidesWithRock = this.rocks.some((rock) =>
+							isColliding({ x: newX, y: newY, size: raccoon.size }, rock)
+						);
+
+						if (!collidesWithRock) {
+							raccoon.x = newX;
+							raccoon.y = newY;
+						}
+						//counting score when colliding with trash
 						const beforeCount = this.trash.length;
 						this.trash = this.trash.filter(
 							(trash) => !isColliding(raccoon, trash)
 						);
 						const afterCount = this.trash.length;
 						this.score += beforeCount - afterCount;
-                        setScore(this.score)
+						setScore(this.score);
 					}
 				});
 				this.trash.forEach((trash) => {
@@ -119,20 +164,61 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 			//renders the canvas
 			render(ctx) {
 				ctx.clearRect(0, 0, width, height);
+				//rendering the obstacles (AKA rocks)
+				this.rocks.forEach((rock) => {
+					const size = rock.size;
+					if (rockImageLoaded) {
+						ctx.drawImage(
+							rockImage,
+							rock.x - size / 2,
+							rock.y - size / 2,
+							size,
+							size
+						);
+					} else {
+						//in case icon doesn't load
+						ctx.fillStyle = "brown";
+						ctx.fillRect(rock.x - size / 2, rock.y - size / 2, size, size);
+					}
+				});
 				//rendering the raccoon on the canvas
 				this.raccoon.forEach((raccoon) => {
 					const size = raccoon.size;
-					ctx.fillStyle = "grey";
-					ctx.fillRect(raccoon.x - size / 2, raccoon.y - size / 2, size, size);
-					//moves the reference point from the top left corner to the center of mass
+					if (raccoonImageLoaded) {
+						ctx.drawImage(
+							raccoonImage,
+							raccoon.x - size / 2,
+							raccoon.y - size / 2,
+							size,
+							size
+						);
+					} else {
+						ctx.fillStyle = "grey";
+						ctx.fillRect(
+							raccoon.x - size / 2,
+							raccoon.y - size / 2,
+							size,
+							size
+						);
+					}
 				});
 				//rendering the trash on the canvas
 				this.trash.forEach((trash) => {
 					const size = trash.size;
-					ctx.fillStyle = "red";
-					ctx.fillRect(trash.x - size / 2, trash.y - size / 2, size, size);
+					if (trashImageLoaded) {
+						ctx.drawImage(
+							trashImage,
+							trash.x - size / 2,
+							trash.y - size / 2,
+							size,
+							size
+						);
+					} else {
+						ctx.fillStyle = "red";
+						ctx.fillRect(trash.x - size / 2, trash.y - size / 2, size, size);
+					}
 				});
-                
+
 				ctx.fillStyle = "black";
 				ctx.font = "24px Arial";
 				ctx.fillText(`Score: ${this.score}`, 10, 30);
@@ -162,42 +248,54 @@ const GameEngine = ({ width = 800, height = 600, setScore }) => {
 	}, [width, height]);
 
 	function Timer() {
-	const [isActive, setIsActive] = useState(false);
-  	const [seconds, setSeconds] = useState(10);
+		const [isActive, setIsActive] = useState(false);
+		const [seconds, setSeconds] = useState(10);
 
-   	useEffect(() => {
-		const handleKeyDown = (event) => {
-      	if ((event.key === 'w' || event.key === 's' || event.key === 'a' || event.key === 'd') && !isActive) {
-        setIsActive(true);
-      	}
-    	};
+		useEffect(() => {
+			const handleKeyDown = (event) => {
+				if (
+					(event.key === "w" ||
+						event.key === "s" ||
+						event.key === "a" ||
+						event.key === "d") &&
+					!isActive
+				) {
+					setIsActive(true);
+				}
+			};
 
-    	window.addEventListener('keydown', handleKeyDown);
+			window.addEventListener("keydown", handleKeyDown);
 
-    	return () => {
-      	window.removeEventListener('keydown', handleKeyDown);
-    	};
-  }	, [isActive]); 
+			return () => {
+				window.removeEventListener("keydown", handleKeyDown);
+			};
+		}, [isActive]);
 
-  	useEffect(() => {
-		if (!seconds) {
+		useEffect(() => {
+			if (!seconds) {
+				//navigate('/leaderboard');
+				//fetch score
+				//is fetch score greater than state score?
+				//if higher, replace score
+				return;
+			} // stop the counter when 0
+			let timer;
+			if (isActive) {
+				timer = setInterval(() => {
+					setSeconds((seconds) => seconds - 1);
+				}, 1000); // Decrement seconds every 1 second
+			}
+			return () => {
+				clearInterval(timer); // Clear the interval on re-render
+			};
+		});
 
-			//navigate('/leaderboard');
-			return;
-		} // stop the counter when 0
-    	let timer
-    	if(isActive){
-			timer = setInterval(() => {
-        	setSeconds((seconds) => seconds - 1);
-      	}, 1000); // Decrement seconds every 1 second
-    	}
-    return () => {
-      clearInterval(timer); // Clear the interval on re-render
-    };
-  });
-
-  	return <div><p>Time remaining: {seconds} seconds</p></div>;
-}
+		return (
+			<div>
+				<p>Time remaining: {seconds} seconds</p>
+			</div>
+		);
+	}
 	return (
 		<>
 			<div> {Timer()}</div>;
