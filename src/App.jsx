@@ -8,7 +8,7 @@ import Account from './components/Account'
 import Home from './components/home'
 import Leaderboard from './components/Leaderboard'
 import Gameplay from './components/Gameplay'
-
+import GameOver from './components/GameOver'
 
 function App() {
 
@@ -35,6 +35,7 @@ function App() {
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
         <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score}/>: <Navigate to="/" />} />
+        <Route path='/gameover' element={<GameOver token={token} />} />
       </Routes>
       <p>State score: {score}</p>
     </div>

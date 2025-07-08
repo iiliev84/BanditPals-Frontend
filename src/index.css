@@ -96,3 +96,27 @@ body {
   margin-top: 50px;
   border-radius: 7px;
 }
+
+.gameover-container {
+  display: block;
+  text-align: center;
+  padding: 20px;
+  margin: auto;
+}
+
+.play-button {
+  background-color: #21a20a;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: #1f4c49;
+  border-style: solid;
+  cursor: pointer;
+}
+
+.play-button:hover {
+  background-color: #60ee46;
+  color:black;
+}

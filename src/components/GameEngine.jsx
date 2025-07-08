@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import raccoonImageUrl from "../assets/raccoon.png";
 import rockImageUrl from "../assets/rock.png";
 import trashImageUrl from "../assets/trash.png";
-
+import { useNavigate } from 'react-router-dom';
 function isColliding(a, b) {
 	if (
 		a.x + a.size >= b.x &&
@@ -14,6 +14,7 @@ function isColliding(a, b) {
 }
 
 const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
+	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
 	useEffect(() => {
@@ -273,7 +274,7 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 
 		useEffect(() => {
 			if (!seconds) {
-				//navigate('/leaderboard');
+				navigate('/gameover');
 				//fetch score
 				//is fetch score greater than state score?
 				//if higher, replace score
