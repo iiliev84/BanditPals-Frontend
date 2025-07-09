@@ -14,6 +14,7 @@ function App() {
 
   const [token, setToken] = useState(() => localStorage.getItem("token"));
   const [score, setScore] = useState(0)
+  const [time, setTime] = useState(null)
 
   useEffect(() => {
     if (token) {
@@ -34,8 +35,8 @@ function App() {
         <Route path='/users/me' element={<Account token={token} />} />
         <Route path='/account' element={token ? <Account token={token} /> : <Navigate to="/login" />} />
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
-        <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score}/>: <Navigate to="/" />} />
-        <Route path='/gameover' element={<GameOver token={token} />} />
+        <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score} setTime={setTime}/>: <Navigate to="/" />} />
+        <Route path='/gameover' element={<GameOver token={token} time={time} setTime={setTime}/>} />
       </Routes>
     </div>
     <div>

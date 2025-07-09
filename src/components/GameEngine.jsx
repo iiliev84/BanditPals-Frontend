@@ -13,7 +13,16 @@ function isColliding(a, b) {
 		return true;
 }
 
-const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
+let startTime;
+let totalSeconds;
+
+const GameEngine = ({
+	width = 800,
+	height = 600,
+	setScore,
+	score,
+	setTime,
+}) => {
 	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
@@ -63,6 +72,8 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 
 			score: 0,
 
+			hasRaccoonMoved: false,
+
 			//hit boxes / size of each of the components
 			//x and y -> spawn points; velocity -> how fast they're moving; size -> pixels
 			trash: [
@@ -94,7 +105,7 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 					velocityy: -20,
 					size: 30,
 				},
-                {
+				{
 					x: 70,
 					y: 80,
 					velocityx: -10,
@@ -122,7 +133,7 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 					velocityy: -20,
 					size: 20,
 				},
-                {
+				{
 					x: 500,
 					y: 400,
 					velocityx: 60,
@@ -152,14 +163,21 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 				{ x: 200, y: 150, size: 50 },
 				{ x: 475, y: 325, size: 60 },
 				{ x: 600, y: 450, size: 40 },
-                { x: 190, y: 500, size: 60 },
+				{ x: 190, y: 500, size: 60 },
 				{ x: 600, y: 150, size: 40 },
-                { x: 100, y: 300, size: 60 },
-                { x: 400, y: 100, size: 40 },
+				{ x: 100, y: 300, size: 60 },
+				{ x: 400, y: 100, size: 40 },
 			],
 
 			//dt = delta time -> change in time
 			update(dt) {
+				if (
+					!this.hasRaccoonMoved &&
+					(keys["KeyW"] || keys["KeyA"] || keys["KeyS"] || keys["KeyD"])
+				) {
+					this.hasRaccoonMoved = true;
+				}
+
 				this.raccoon.forEach((raccoon) => {
 					//if the raccoon is alive and the key is pressed, it will move at a certain speed
 					//determines if the raccoon hits a wall and stops the movement
@@ -195,17 +213,20 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 						setScore(this.score);
 					}
 				});
-				this.trash.forEach((trash) => {
-					//determines if the trash hits a wall in the canvas
-					//if it hits the wall, it will bounce off and move in the opposite direction (-1)
-					trash.x += trash.velocityx * dt;
-					trash.y += trash.velocityy * dt;
-					const radius = trash.size / 2;
-					if (trash.x < radius || trash.x > width - radius)
-						trash.velocityx *= -1;
-					if (trash.y < radius || trash.y > height - radius)
-						trash.velocityy *= -1;
-				});
+				if (this.hasRaccoonMoved) {
+					startTime = performance.now();
+					this.trash.forEach((trash) => {
+						//determines if the trash hits a wall in the canvas
+						//if it hits the wall, it will bounce off and move in the opposite direction (-1)
+						trash.x += trash.velocityx * dt;
+						trash.y += trash.velocityy * dt;
+						const radius = trash.size / 2;
+						if (trash.x < radius || trash.x > width - radius)
+							trash.velocityx *= -1;
+						if (trash.y < radius || trash.y > height - radius)
+							trash.velocityy *= -1;
+					});
+				}
 			},
 
 			//renders the canvas
@@ -265,10 +286,10 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 						ctx.fillRect(trash.x - size / 2, trash.y - size / 2, size, size);
 					}
 				});
-
-				ctx.fillStyle = "black";
-				ctx.font = "24px Arial";
-				ctx.fillText(`Score: ${this.score}`, 10, 30);
+				if (this.trash.length < 1) {
+					setTime(totalSeconds);
+					navigate("/gameover");
+				}
 			},
 		};
 
@@ -276,7 +297,9 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 
 		//loop constantly refreshes the frame to keep the game running and updating
 		function loop(now) {
-			const dt = (now - engine.lastTime) / 1000;
+			const dti = now - engine.lastTime;
+			const dt = dti / 1000;
+			totalSeconds = Math.floor(((dti + startTime) / 1000) * 100) / 100;
 			engine.lastTime = now;
 			engine.update(dt);
 			engine.render(ctx);
@@ -294,58 +317,50 @@ const GameEngine = ({ width = 800, height = 600, setScore, score }) => {
 		};
 	}, [width, height]);
 
-	function Timer() {
-		const [isActive, setIsActive] = useState(false);
-		const [seconds, setSeconds] = useState(10);
+	// function Timer() {
+	// 	const [isActive, setIsActive] = useState(false);
+	// 	const [seconds, setSeconds] = useState(0);
 
-		useEffect(() => {
-			const handleKeyDown = (event) => {
-				if (
-					(event.key === "w" ||
-						event.key === "s" ||
-						event.key === "a" ||
-						event.key === "d") &&
-					!isActive
-				) {
-					setIsActive(true);
-				}
-			};
+	// 	useEffect(() => {
+	// 		const handleKeyDown = (event) => {
+	// 			if (
+	// 				(event.key === "w" ||
+	// 					event.key === "s" ||
+	// 					event.key === "a" ||
+	// 					event.key === "d") &&
+	// 				!isActive
+	// 			) {
+	// 				setIsActive(true);
+	// 			}
+	// 		};
 
-			window.addEventListener("keydown", handleKeyDown);
+	// 		window.addEventListener("keydown", handleKeyDown);
 
-			return () => {
-				window.removeEventListener("keydown", handleKeyDown);
-			};
-		}, [isActive]);
+	// 		return () => {
+	// 			window.removeEventListener("keydown", handleKeyDown);
+	// 		};
+	// 	}, [isActive]);
 
-		useEffect(() => {
-			if (!seconds) {
-				navigate("/gameover");
-				//fetch score
-				//is fetch score greater than state score?
-				//if higher, replace score
-				return;
-			} // stop the counter when 0
-			let timer;
-			if (isActive) {
-				timer = setInterval(() => {
-					setSeconds((seconds) => seconds - 1);
-				}, 1000); // Decrement seconds every 1 second
-			}
-			return () => {
-				clearInterval(timer); // Clear the interval on re-render
-			};
-		});
+	// 	useEffect(() => {
+	// 		let timer;
+	// 		if (isActive) {
+	// 			timer = setInterval(() => {
+	// 				setSeconds((seconds) => (seconds += 1));
+	// 			}, 1000); // Decrement seconds every 1 second
+	// 		}
+	// 		return () => {
+	// 			clearInterval(timer); // Clear the interval on re-render
+	// 		};
+	// 	});
 
-		return (
-			<div>
-				<p>Time remaining: {seconds} seconds</p>
-			</div>
-		);
-	}
+	// 	return (
+	// 		<div>
+
+	// 		</div>
+	// 	);
+	// }
 	return (
 		<>
-			<div> {Timer()}</div>;
 			<canvas
 				ref={canvasRef}
 				width={width}
