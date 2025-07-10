@@ -23,8 +23,8 @@ function isColliding(a, b) {
 // 			achievement_id: achievement_id
 // 		}),
 // 	});
-// 		const result= await response.json();
-// 		console.log(`post result`,result);
+// 		const result = await response.json();
+// 		console.log(`post result`, result);
 // 	}catch(error){
 // 		console.error(`Achievement unlock failed`)
 // 	};
