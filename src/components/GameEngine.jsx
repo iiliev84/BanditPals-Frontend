@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import raccoonImageUrl from "../assets/raccoon.png";
 import rockImageUrl from "../assets/rock.png";
 import trashImageUrl from "../assets/trash.png";
