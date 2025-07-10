@@ -11,21 +11,29 @@ export default function Account({ token }) {
       return;
     }
 
-    async function getUser() {
-      try {
-        const result = await fetch(`http://localhost:3000/users/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        });
-        const data = await result.json();
-        setUser(data);
-      } catch (error) {
-        console.error("Error loading user details: ", error);
-      }
+async function getUser() {
+  try {
+    const res = await fetch(`http://localhost:3000/users/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Failed to fetch user: ${res.status} - ${text}`);
     }
-    getUser();
-  }, []);
+    
+    const data = await res.json();
+    console.log(data)
+    data.sort((a,b) => a.score - b.score);
+    setUser(data[0]);
+  } catch (error) {
+    console.error("Error loading user details: ", error);
+  }
+}
+getUser();
+  }, [token, navigate]);
+
 
    return(
     <>
