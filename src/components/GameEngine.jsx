@@ -11,7 +11,30 @@ function isColliding(a, b) {
 		a.y <= b.y + b.size
 	)
 		return true;
-}
+};
+
+// async function unlockAchievement(achievement_id){
+// 	try{
+// 		const response = await fetch(`http://localhost:3000/achievements/${id}`, {
+// 		method: 'POST',
+// 		headers: {'Content-Type': 'application/json'},
+// 		body: JSON.stringify({
+// 			user_id: user_id,
+// 			achievement_id: achievement_id
+// 		}),
+// 	});
+// 		const result= await response.json();
+// 		console.log(`post result`,result);
+// 	}catch(error){
+// 		console.error(`Achievement unlock failed`)
+// 	};
+// };
+
+// function checkMilestoneAchievements(score){
+// 	if (score >= 1) unlockAchievement(1);
+// 	if (score >= 5) unlockAchievement(2);
+// 	if (score >= 10) unlockAchievement(3);
+// };
 
 let startTime;
 let totalSeconds;
@@ -213,6 +236,7 @@ const GameEngine = ({
 						const afterCount = this.trash.length;
 						this.score += beforeCount - afterCount;
 						setScore(this.score);
+// checkMilestoneAchievements(score);
 					}
 				});
 				if (this.hasRaccoonMoved) {
@@ -302,6 +326,7 @@ const GameEngine = ({
 						const result = await response.json();
 					}
 					addToLeaderBoards()
+// checkMilestoneAchievements(score);
 					navigate("/gameover");
 				};
 			}}
