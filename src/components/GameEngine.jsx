@@ -22,6 +22,8 @@ const GameEngine = ({
 	setScore,
 	score,
 	setTime,
+	token,
+	userId
 }) => {
 	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
@@ -287,11 +289,43 @@ const GameEngine = ({
 					}
 				});
 				if (this.trash.length < 1) {
-					setTime(totalSeconds);
+  					setTime(totalSeconds);
+					const addToLeaderBoards = async() => {
+						const response = await fetch(`http://localhost:3000/score`, {
+							method: "POST",
+							headers: {'Content-Type':'application/json',
+								Authorization: `Bearer ${token}`
+							},
+							body: JSON.stringify({ score: totalSeconds })
+
+						});
+						const result = await response.json();
+						console.log(result);
+					}
+					addToLeaderBoards()
 					navigate("/gameover");
-				}
-			},
-		};
+				};
+			}}
+  				// Submit the float score to backend
+  			// 		fetch(`http://localhost:3000/score/${userId}`, {
+   			// 			method: "POST",
+    		// 	 		headers: {
+     		// 				"Content-Type": "application/json",
+      		// 				Authorization: `Bearer ${token}`,
+   			// 		},
+    		// 			body: JSON.stringify({
+      		// 				user_id: userId,
+      		// 				score: totalSeconds,
+      		// 				created_at: new Date().toISOString(),
+   			// 			 }),
+  			// 		}).then(() => 
+   			// 		  .catch((err) => {
+      		// 				console.error("Error posting score:", err);
+     		// 				navigate("/gameover");
+   			// 			 });
+			// 		}
+			// },
+		
 
 		let frameId;
 
