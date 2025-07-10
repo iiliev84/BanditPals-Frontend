@@ -9,7 +9,6 @@ export default function Leaderboard() {
       try {
         const res = await fetch("http://localhost:3000/score");
         const data = await res.json();
-        console.log(data);
         setLeaders(data);
         data.sort((a,b) => a.score - b.score)
       } catch (error) {
