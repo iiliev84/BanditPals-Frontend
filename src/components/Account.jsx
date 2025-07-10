@@ -24,7 +24,6 @@ async function getUser() {
     }
     
     const data = await res.json();
-    console.log(data)
     data.sort((a,b) => a.score - b.score);
     setUser(data[0]);
   } catch (error) {

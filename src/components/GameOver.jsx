@@ -1,7 +1,7 @@
 import over from "../assets/BPover.png";
 import { useNavigate } from "react-router-dom";
 
-export default function GameOver({ time, setTime }) {
+export default function GameOver({ time }) {
 	const navigate = useNavigate();
 	return (
 		<>
