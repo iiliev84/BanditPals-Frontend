@@ -300,32 +300,11 @@ const GameEngine = ({
 
 						});
 						const result = await response.json();
-						console.log(result);
 					}
 					addToLeaderBoards()
 					navigate("/gameover");
 				};
 			}}
-  				// Submit the float score to backend
-  			// 		fetch(`http://localhost:3000/score/${userId}`, {
-   			// 			method: "POST",
-    		// 	 		headers: {
-     		// 				"Content-Type": "application/json",
-      		// 				Authorization: `Bearer ${token}`,
-   			// 		},
-    		// 			body: JSON.stringify({
-      		// 				user_id: userId,
-      		// 				score: totalSeconds,
-      		// 				created_at: new Date().toISOString(),
-   			// 			 }),
-  			// 		}).then(() => 
-   			// 		  .catch((err) => {
-      		// 				console.error("Error posting score:", err);
-     		// 				navigate("/gameover");
-   			// 			 });
-			// 		}
-			// },
-		
 
 		let frameId;
 
@@ -351,48 +330,6 @@ const GameEngine = ({
 		};
 	}, [width, height]);
 
-	// function Timer() {
-	// 	const [isActive, setIsActive] = useState(false);
-	// 	const [seconds, setSeconds] = useState(0);
-
-	// 	useEffect(() => {
-	// 		const handleKeyDown = (event) => {
-	// 			if (
-	// 				(event.key === "w" ||
-	// 					event.key === "s" ||
-	// 					event.key === "a" ||
-	// 					event.key === "d") &&
-	// 				!isActive
-	// 			) {
-	// 				setIsActive(true);
-	// 			}
-	// 		};
-
-	// 		window.addEventListener("keydown", handleKeyDown);
-
-	// 		return () => {
-	// 			window.removeEventListener("keydown", handleKeyDown);
-	// 		};
-	// 	}, [isActive]);
-
-	// 	useEffect(() => {
-	// 		let timer;
-	// 		if (isActive) {
-	// 			timer = setInterval(() => {
-	// 				setSeconds((seconds) => (seconds += 1));
-	// 			}, 1000); // Decrement seconds every 1 second
-	// 		}
-	// 		return () => {
-	// 			clearInterval(timer); // Clear the interval on re-render
-	// 		};
-	// 	});
-
-	// 	return (
-	// 		<div>
-
-	// 		</div>
-	// 	);
-	// }
 	return (
 		<>
 			<canvas

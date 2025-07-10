@@ -13,8 +13,8 @@ export default function GameOver({ time, setTime }) {
 					<button
 						className="play-button"
 						onClick={() => {
-							setTime(0);
 							navigate("/game");
+							window.location.reload();
 						}}
 					>
 						Play Again
