@@ -326,6 +326,8 @@ const GameEngine = ({
 						const result = await response.json();
 					}
 					addToLeaderBoards()
+
+// try to build post here in the style of above
 // checkMilestoneAchievements(score);
 					navigate("/gameover");
 				};
