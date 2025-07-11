@@ -11,7 +11,10 @@ function isColliding(a, b) {
 		a.y <= b.y + b.size
 	)
 		return true;
-}
+};
+
+
+
 
 let startTime;
 let totalSeconds;
@@ -28,6 +31,31 @@ const GameEngine = ({
 	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
+	async function unlockAchievement(achievement_id){
+	console.log(`got here :)`)
+	console.log(`token`, token)
+	try{
+		const response = await fetch(`http://localhost:3000/achievements/`, {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`},
+		body: JSON.stringify({
+			achievement_id: achievement_id
+		}),
+	});
+		const result = await response.json();
+		console.log(`post result`, result);
+	}catch(error){
+		console.error(`Achievement unlock failed`)
+	};
+};
+
+//rewrite achievements to focus on time not trash
+function checkMilestoneAchievements(totalSeconds){
+	console.log(`line 35`, totalSeconds);
+	if (totalSeconds >= 10) unlockAchievement(1);
+	if (totalSeconds >= 15) unlockAchievement(2);
+	if (totalSeconds >= 30) unlockAchievement(3);
+};
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		//ctx -> canvas is on a 2d plane
@@ -302,6 +330,9 @@ const GameEngine = ({
 						const result = await response.json();
 					}
 					addToLeaderBoards()
+
+					checkMilestoneAchievements(totalSeconds);
+
 					navigate("/gameover");
 				};
 			}}
