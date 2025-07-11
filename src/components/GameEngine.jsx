@@ -13,28 +13,8 @@ function isColliding(a, b) {
 		return true;
 };
 
-// async function unlockAchievement(achievement_id){
-// 	try{
-// 		const response = await fetch(`http://localhost:3000/achievements/${id}`, {
-// 		method: 'POST',
-// 		headers: {'Content-Type': 'application/json'},
-// 		body: JSON.stringify({
-// 			user_id: user_id,
-// 			achievement_id: achievement_id
-// 		}),
-// 	});
-// 		const result = await response.json();
-// 		console.log(`post result`, result);
-// 	}catch(error){
-// 		console.error(`Achievement unlock failed`)
-// 	};
-// };
 
-// function checkMilestoneAchievements(score){
-// 	if (score >= 1) unlockAchievement(1);
-// 	if (score >= 5) unlockAchievement(2);
-// 	if (score >= 10) unlockAchievement(3);
-// };
+
 
 let startTime;
 let totalSeconds;
@@ -51,6 +31,31 @@ const GameEngine = ({
 	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
+	async function unlockAchievement(achievement_id){
+	console.log(`got here :)`)
+	console.log(`token`, token)
+	try{
+		const response = await fetch(`http://localhost:3000/achievements/`, {
+		method: 'POST',
+		headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}`},
+		body: JSON.stringify({
+			achievement_id: achievement_id
+		}),
+	});
+		const result = await response.json();
+		console.log(`post result`, result);
+	}catch(error){
+		console.error(`Achievement unlock failed`)
+	};
+};
+
+//rewrite achievements to focus on time not trash
+function checkMilestoneAchievements(totalSeconds){
+	console.log(`line 35`, totalSeconds);
+	if (totalSeconds >= 10) unlockAchievement(1);
+	if (totalSeconds >= 15) unlockAchievement(2);
+	if (totalSeconds >= 30) unlockAchievement(3);
+};
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		//ctx -> canvas is on a 2d plane
@@ -236,7 +241,6 @@ const GameEngine = ({
 						const afterCount = this.trash.length;
 						this.score += beforeCount - afterCount;
 						setScore(this.score);
-// checkMilestoneAchievements(score);
 					}
 				});
 				if (this.hasRaccoonMoved) {
@@ -327,8 +331,8 @@ const GameEngine = ({
 					}
 					addToLeaderBoards()
 
-// try to build post here in the style of above
-// checkMilestoneAchievements(score);
+					checkMilestoneAchievements(totalSeconds);
+
 					navigate("/gameover");
 				};
 			}}
