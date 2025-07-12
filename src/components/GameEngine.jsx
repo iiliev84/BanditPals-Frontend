@@ -363,7 +363,7 @@ function checkMilestoneAchievements(totalSeconds){
 
 	return (
 		<>
-			<canvas
+			<canvas className="canvas-container"
 				ref={canvasRef}
 				width={width}
 				height={height}
