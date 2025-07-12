@@ -1,8 +1,12 @@
 import over from "../assets/BPover.png";
 import { useNavigate } from "react-router-dom";
+import useSound from 'use-sound';
+import oversound from '../assets/game-over.mp3';
 
 export default function GameOver({ time }) {
 	const navigate = useNavigate();
+	const [playGameOver] = useSound(oversound);
+	playGameOver();
 	return (
 		<>
 			<div className="gameover-container">
