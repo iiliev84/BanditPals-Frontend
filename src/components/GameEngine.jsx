@@ -3,6 +3,10 @@ import raccoonImageUrl from "../assets/raccoon.png";
 import rockImageUrl from "../assets/rock.png";
 import trashImageUrl from "../assets/trash.png";
 import { useNavigate } from "react-router-dom";
+import useSound from 'use-sound';
+import ImpactSound from '../assets/impact.mp3';
+
+
 function isColliding(a, b) {
 	if (
 		a.x + a.size >= b.x &&
@@ -12,9 +16,6 @@ function isColliding(a, b) {
 	)
 		return true;
 };
-
-
-
 
 let startTime;
 let totalSeconds;
@@ -31,6 +32,13 @@ const GameEngine = ({
 	const navigate = useNavigate();
 	//useRef keeps the page from re-rendering and keeps the canvas updating
 	const canvasRef = useRef(null);
+	
+	const [playImpact] = useSound(ImpactSound);
+
+	useEffect(()=>{
+		playImpact();			
+		},[score]);
+
 	async function unlockAchievement(achievement_id){
 	console.log(`got here :)`)
 	console.log(`token`, token)
@@ -330,9 +338,9 @@ function checkMilestoneAchievements(totalSeconds){
 						const result = await response.json();
 					}
 					addToLeaderBoards()
-
+					
 					checkMilestoneAchievements(totalSeconds);
-
+					
 					navigate("/gameover");
 				};
 			}}
