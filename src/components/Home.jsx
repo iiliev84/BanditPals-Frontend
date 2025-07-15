@@ -11,7 +11,7 @@ const Home = () => {
 					<img src={logo} alt="BPlogo" />
 					<h2>Welcome to Bandit Pals!</h2>
 					<p className="instructionsHeader">Instructions: Use the WASD keys to move the raccoon around the field. Collect trash while avoiding rock obstacles!</p>
-					<p>Ready to play? Start by registering or logging in! Then click on the play tab at the top of the screen to start your next trash-filled adventure!</p>
+					<p className="instructionsHeader">Ready to play? Start by registering or logging in! Click on the play tab at the top of the screen to start your next trash-filled adventure!</p>
 				</div>
 			</div>
 		</>

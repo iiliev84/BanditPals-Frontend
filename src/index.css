@@ -135,3 +135,24 @@ body {
   box-shadow: 0 2px 8px green;
   font-family: Georgia, serif;
 }
+
+.table-container {
+  display:inline-table;
+  text-align: center;
+}
+
+th {
+  padding: 15px;
+  color: rgb(89, 17, 17);
+}
+
+td {
+  padding: 5px;
+  color: black;
+}
+
+.instructionsHeader {
+  text-align: center;
+  padding: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

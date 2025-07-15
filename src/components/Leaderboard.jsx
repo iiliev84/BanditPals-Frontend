@@ -23,7 +23,7 @@ export default function Leaderboard() {
     <div className="leaderboard-container">
       <img src={logo} alt="BPlogo" />
       <h2>LEADERBOARD</h2>
-      <table>
+      <table  className="table-container">
         <thead>
           <tr>
             <th>Rank</th>
