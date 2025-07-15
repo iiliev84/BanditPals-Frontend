@@ -120,3 +120,39 @@ body {
   background-color: #60ee46;
   color:black;
 }
+.canvas-container {
+  background-image: url("./assets/grass.jpg");
+}
+
+.leaderboard-container {
+  display: block;
+  text-align: center;
+  padding: 25px;
+  background-color: #9dd595;
+  width: 400px;
+  margin:25px auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px green;
+  font-family: Georgia, serif;
+}
+
+.table-container {
+  display:inline-table;
+  text-align: center;
+}
+
+th {
+  padding: 15px;
+  color: rgb(89, 17, 17);
+}
+
+td {
+  padding: 5px;
+  color: black;
+}
+
+.instructionsHeader {
+  text-align: center;
+  padding: 10px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

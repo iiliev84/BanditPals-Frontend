@@ -375,16 +375,16 @@ const GameEngine = ({
     };
   }, [width, height]);
 
-  return (
-    <>
-      <canvas
-        ref={canvasRef}
-        width={width}
-        height={height}
-        style={{ border: "1px solid black" }}
-      ></canvas>
-    </>
-  );
+	return (
+		<>
+			<canvas className="canvas-container"
+				ref={canvasRef}
+				width={width}
+				height={height}
+				style={{ border: "1px solid black" }}
+			></canvas>
+		</>
+	);
 };
 
 export default GameEngine;
