@@ -15,6 +15,7 @@ export default function Navigations({ token, setToken }) {
             <Link className="nav-link" to="/account">Account</Link>
             <Link className="nav-link" to="/game" reloadDocument>Play</Link>
             <Link className="nav-link" to="/leaderboard">Leaderboard</Link>
+            <Link className="nav-link" to="/pals">Founding Pals</Link>
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </>
         ) : (
