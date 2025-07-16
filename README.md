@@ -1,12 +1,6 @@
-# React + Vite
+# BanditPals
+Bandit Pals is a fast-paced browser game where players control a racoon navigating a 2D map to collect trash, while avoiding rocks, as fast as they can.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Backend repo: https://github.com/iiliev84/BanditPals-Backend
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Original pitch document: https://docs.google.com/document/d/1_oiEVE9Mf02tA_E5rYfgmKGeQ3fSIDwPaeIHYfjYBXo/edit?usp=sharing
