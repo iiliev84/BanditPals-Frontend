@@ -82,6 +82,7 @@ useEffect(()=>{
 <div>
   <>
   <h2 className = "userAchievementsTitle">Unlocked Achievements:</h2>
+    <div className="userAchievementsGrid">
   {
     userAchievements && userAchievements.map((userAchievement)=>(
       <div key={userAchievement.achievement_id} className="userAchievement">
@@ -90,11 +91,13 @@ useEffect(()=>{
       </div>
     ))
   }
+  </div>
   </>
 </div>
 </div>
 <>
 <h2 className="allAchievementsTitle">Available Achievements:</h2>
+  <div className="allAchievementsGrid">
 {
   allAchievements && allAchievements.map((achievement)=>(
     <div key = {achievement.id} className="achievement">
@@ -103,8 +106,9 @@ useEffect(()=>{
         <p className="achievementId">Achievement Id: {achievement.id}</p>
     </div>
   )
-  )
+)
 }
+</div>
 </>
 </>
 )

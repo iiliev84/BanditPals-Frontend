@@ -22,7 +22,7 @@ export default function Leaderboard() {
   return (
     <div className="leaderboard-container">
       <img src={logo} alt="BPlogo" />
-      <h2>LEADERBOARD</h2>
+      <h2 className="LeaderboardHeader">LEADERBOARD</h2>
       <table  className="table-container">
         <thead>
           <tr>
