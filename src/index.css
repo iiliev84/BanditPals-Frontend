@@ -120,6 +120,7 @@ body {
   background-color: #60ee46;
   color:black;
 }
+
 .canvas-container {
   background-image: url("./assets/grass.jpg");
 }
@@ -143,7 +144,7 @@ body {
 
 th {
   padding: 15px;
-  color: rgb(89, 17, 17);
+  color: rgb(83, 9, 9);
 }
 
 td {
@@ -192,23 +193,23 @@ td {
 
 .achievement{
   width:75%;
-border-radius: 15px;
-background-color: #D8A45C;
-border-style: solid;
-border-color: #322214;
-border-width: 2%;
-padding:15%;
+  border-radius: 15px;
+  background-color: #D8A45C;
+  border-style: solid;
+  border-color: #322214;
+  border-width: 2%;
+  padding:15%;
 }
 
 .userAchievement{
-    width:75%;
-border-radius: 15px;
-background-color: #4e7c46;
-border-style: solid;
-border-color: #322214;
-color:#b2d7a1;
-border-width: 10%;
-padding:15%;
+  width:75%;
+  border-radius: 15px;
+  background-color: #4e7c46;
+  border-style: solid;
+  border-color: #322214;
+  color:#b2d7a1;
+  border-width: 10%;
+  padding:15%;
 }
 
 .account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions, .login-container, .register-container{
@@ -221,5 +222,10 @@ padding:15%;
 
 .userAchievementsTitle{
   color: #065c1d;
+}
+
+.accountDetails{
+  color: #5f3918;
+  text-shadow: 2px 2px 4px #206a15;
 }
 
