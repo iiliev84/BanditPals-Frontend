@@ -211,6 +211,6 @@ border-width: 10%;
 padding:15%;
 }
 
-.account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions{
+.account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions, .login-container, .register-container{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
