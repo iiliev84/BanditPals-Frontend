@@ -156,3 +156,22 @@ td {
   padding: 10px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.palsimg {
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 400px; 
+  height: auto;
+}
+
+.pals{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+}
+
+.palInfo{
+ font-family: Verdana, Geneva, Tahoma, sans-serif;
+ display: block;
+ margin: 30px auto 0 auto; 
+ width: 800px; 
+}

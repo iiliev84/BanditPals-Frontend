@@ -9,6 +9,7 @@ import Home from './components/Home'
 import Leaderboard from './components/Leaderboard'
 import Gameplay from './components/Gameplay'
 import GameOver from './components/GameOver'
+import Pals from './components/Pals'
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path='/leaderboard' element={<Leaderboard token={token} />} />
         <Route path='/game' element={token ? <Gameplay token={token} setScore={setScore} score={score} setTime={setTime}/>: <Navigate to="/" />} />
         <Route path='/gameover' element={<GameOver time={time}/>} />
+        <Route path='/pals' element={<Pals />} />
       </Routes>
     </div>
     <div>
