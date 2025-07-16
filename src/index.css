@@ -175,3 +175,42 @@ td {
  margin: 30px auto 0 auto; 
  width: 800px; 
 }
+
+
+.userAchievementsGrid, .allAchievementsGrid{
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding:5%;
+  column-gap: 25px;
+  row-gap: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size:75%;
+  justify-items: center;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.achievement{
+  width:75%;
+border-radius: 15px;
+background-color: #D8A45C;
+border-style: solid;
+border-color: #322214;
+border-width: 2%;
+padding:15%;
+}
+
+.userAchievement{
+    width:75%;
+border-radius: 15px;
+background-color: #4e7c46;
+border-style: solid;
+border-color: #322214;
+color:#b2d7a1;
+border-width: 10%;
+padding:15%;
+}
+
+.account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions, .login-container, .register-container{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

@@ -54,7 +54,6 @@ const GameEngine = ({
         }),
       });
       const result = await response.json();
-      console.log(`post result`, result);
     } catch (error) {
       console.error(`Achievement unlock failed`);
     }
@@ -62,7 +61,6 @@ const GameEngine = ({
 
   //checks totalSeconds and then posts the correct achievement based on the db table
   function checkMilestoneAchievements(totalSeconds) {
-    console.log(`line 35`, totalSeconds);
     if (totalSeconds < 10) unlockAchievement(1);
     if (totalSeconds < 15) unlockAchievement(2);
     if (totalSeconds < 20) unlockAchievement(3);
