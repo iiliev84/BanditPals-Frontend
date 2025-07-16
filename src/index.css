@@ -214,3 +214,24 @@ padding:15%;
 .account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions, .login-container, .register-container{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.LeaderboardImage{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 400px; 
+  height: auto;
+}
+
+.tiredrac{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 250px; 
+  height: auto;
+}
+
+.overimg{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 500px; 
+  height: 250px;
+}

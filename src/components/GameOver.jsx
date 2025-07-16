@@ -2,6 +2,7 @@ import over from "../assets/BPover.png";
 import { useNavigate } from "react-router-dom";
 import useSound from 'use-sound';
 import oversound from '../assets/game-over.mp3';
+import gameover from "../assets/gameover.png";
 
 export default function GameOver({ time }) {
 	const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function GameOver({ time }) {
 		<>
 			<div className="gameover-container">
 				<div className="gameover-content">
-					<img src={over} alt="BPover" />
+					<img className="overimg" src={over} alt="BPover" />
+					<img className="tiredrac" src={gameover} alt="tiredrac" />
 					<br></br>
 					<br></br>
 					<button

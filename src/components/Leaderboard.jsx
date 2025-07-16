@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import logo from "../assets/BPlogo.png";
+import leaderboard from "../assets/leaderboard.png"
 
 export default function Leaderboard() {
   const [leaders, setLeaders] = useState([]);
@@ -21,7 +21,7 @@ export default function Leaderboard() {
 
   return (
     <div className="leaderboard-container">
-      <img src={logo} alt="BPlogo" />
+      <img className="LeaderboardImage" src={leaderboard} alt="leaderboard" />
       <h2 className="LeaderboardHeader">LEADERBOARD</h2>
       <table  className="table-container">
         <thead>
