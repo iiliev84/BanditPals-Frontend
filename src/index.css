@@ -229,3 +229,25 @@ td {
   text-shadow: 2px 2px 4px #206a15;
 }
 
+
+
+.LeaderboardImage{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 400px; 
+  height: auto;
+}
+
+.tiredrac{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 250px; 
+  height: auto;
+}
+
+.overimg{
+  display: block;
+  margin: 20px auto 0 auto; 
+  width: 500px; 
+  height: 250px;
+}
