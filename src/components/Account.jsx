@@ -72,9 +72,9 @@ useEffect(()=>{
     <div className="account-container">
      {user ? (
     <>
-      <h1>Account Details</h1>
+      <h1 className = "accountDetails">Account Details</h1>
       <h2>Username: {user.username} </h2>
-      <h2>Highest Score: {user.score}</h2>
+      <h2>Fastest Time: {user.score} seconds</h2>
     </>
   ) : (
     <p>Loading account details...</p>

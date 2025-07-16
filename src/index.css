@@ -178,8 +178,8 @@ td {
 
 
 .userAchievementsGrid, .allAchievementsGrid{
-    display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   padding:5%;
   column-gap: 25px;
   row-gap: 25px;
@@ -214,3 +214,12 @@ padding:15%;
 .account-container, .allAchievementsTitle, .instructionsHeader, .HomeWelcome, .LeaderboardHeader, .table-container, .playInstructions, .login-container, .register-container{
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.allAchievementsTitle{
+  color: rgb(120, 79, 3);
+}
+
+.userAchievementsTitle{
+  color: #065c1d;
+}
+
